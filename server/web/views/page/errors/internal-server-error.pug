@@ -1,0 +1,51 @@
+style(type='text/css').
+  body {
+    background : #f0f1f5;
+    color      : #464951;
+  }
+
+  .error-page {
+    padding     : 42px;
+    font-family : 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  }
+
+  .error-page__content {
+    padding    : 25px;
+    max-width  : 720px;
+    min-height : 50vh;
+    margin     : 0 auto;
+    box-shadow : 0 0 9px rgba(32, 36, 43, .22);
+    border     : 1px solid #d7d9e0;
+    background : white;
+  }
+
+  h1 {
+    margin-bottom : 32px;
+    font-size     : 24px;
+    text-align    : center;
+  }
+
+  li {
+    margin-bottom : 16px;
+  }
+
+  a {
+    color : #00b3e6;
+  }
+
+  a:visited {
+    color : #7b808c;
+  }
+
+.error-page
+  .error-page__content
+    if errorMessage
+      h1.ref__notFound= errorMessage
+    else
+      h1 A server error occurred, please try again later
+
+    if helpfulLinks
+      ul
+        each link in helpfulLinks
+          li
+            a(href=link.url)= link.label

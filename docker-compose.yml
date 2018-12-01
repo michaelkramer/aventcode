@@ -1,0 +1,44 @@
+postgres-sandbox:
+  image: mdillon/postgis:9.6
+  ports:
+    - "5550:5432"
+  volumes_from:
+    - pgdata-sandbox
+  environment:
+    POSTGRES_USER: db
+    POSTGRES_PASSWORD: db
+    POSTGRES_DB: db
+
+pgdata-sandbox:
+  image: busybox
+  volumes:
+    - /data
+
+rabbitmq:
+  image: rabbitmq:3.5-management
+  ports:
+    - "5674:5672"
+    - "15670:15672"
+
+redis:
+  image: redis:3.2.5
+  ports:
+    - "6381:6379"
+  volumes_from:
+    - redisdata
+
+redisdata:
+  image: busybox
+  volumes:
+    - /data
+
+pgweb-sandbox:
+  container_name: pgweb-sandbox
+  image: sosedoff/pgweb
+  ports:
+    - "8081:8081"
+  links:
+    - postgres-sandbox:postgres-sandbox
+  environment:
+    - DATABASE_URL=postgres://db:db@postgres-sandbox:5432/db?sslmode=disable
+
