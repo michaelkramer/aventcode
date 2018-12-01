@@ -1,0 +1,26 @@
+{
+  "verbose": false,
+  "ignore": [
+    ".git/*",
+    "node_modules/*",
+    "migrations/*",
+    "dist/*",
+    "server/web/public/css/main.css",
+    "server/web/public/images/*",
+    "test/*",
+    ".gitlab/*",
+    "flow/*",
+    "flow-typed/*",
+    "npm-debug*"
+  ],
+  "events": {
+    "restart": [
+      "printf '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'"
+    ]
+  },
+  "env": {
+    "NODEMON": "1"
+  },
+  "delay": "100",
+  "ext": "scss js pug"
+}

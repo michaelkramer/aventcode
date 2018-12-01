@@ -1,0 +1,23 @@
+mixin alert(alerts = null)
+  if alerts
+    - messages = alerts
+  if messages && messages.error
+    .alert.alert-danger(role='alert')
+      ul
+        each msg in messages.error
+          li= msg
+  if messages && messages.success
+    .alert.alert-success(role='alert')
+      ul
+        each msg in messages.success
+          li= msg
+  if messages && messages.info
+    .alert.alert-info(role='alert')
+      ul
+        each msg in messages.info
+          li= msg
+  if messages && messages.warning
+    .alert.alert-warning(role='alert')
+      ul
+        each msg in messages.warning
+          li= msg
