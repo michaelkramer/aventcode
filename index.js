@@ -2,48 +2,30 @@
 /* @flow */
 /* eslint-disable strict */
 
-'use strict';
+"use strict";
 
-require('babel-register');
+require("babel-register");
 
-const program = require('commander');
+const program = require("commander");
 
-const {addDBConnection, addHeretic, addCache} = require('distraught');
+const startWebServer = require("./web").startWebServer;
 
-const startWebServer = require('./web').startWebServer;
-const startWorkerServer = require('./workers').startWorkerServer;
-const startCronServer = require('./crons').startCronServer;
-
-addCache('ck', {connection: process.env.REDIS_URL}); // makes cache.ck available if you `import {cache} from 'distraught';`
-
-const dbConnection = addDBConnection('ck', {connection: process.env.DATABASE_URL}); // makes db.ck available if you `import {db} from 'distraught';`
-addHeretic('ck', {dbConnection, connection: process.env.AMQP_URL}); // makes heretic.ck available if you `import {heretic} from 'distraught';`
-
-function allServers() {
-  startWebServer();
-  startWorkerServer();
-  startCronServer();
-}
+const start201801 = require("./scripts/2018-01").run;
+const start201802 = require("./scripts/2018-02").run;
 
 program
-  .command('web')
-  .description('start a web server')
+  .command("web")
+  .description("start a web server")
   .action(startWebServer);
 
 program
-  .command('workers')
-  .description('start a worker server')
-  .action(startWorkerServer);
-
+  .command("2018-01")
+  .description("start 2018-01")
+  .action(start201801);
 program
-  .command('cron')
-  .description('start a cron server')
-  .action(startCronServer);
-
-program
-  .command('all')
-  .description('start all servers')
-  .action(allServers);
+  .command("2018-02")
+  .description("start 2018-02")
+  .action(start201802);
 
 program.parse(process.argv);
 if (!process.argv.slice(2).length) {
